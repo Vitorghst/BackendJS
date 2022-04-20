@@ -1,31 +1,43 @@
 const User = require('../model/User')
+const Email = require('../services/Email')
 
-//CRUD
-
+// CRUD
 module.exports = {
-   async store(req, res){
-        const {nome, email, token, RA, password}= req.body
-        const user = await User.create({nome, email, token, RA, password})
+    // CREARE -> CRIAR
+    async store (req, res){
+        const {name, email, RA, password} = req.body
+        const user = await User.create({name, email, RA, password})
+        Email.send({
+            locals:{
+                name: user.name,
+            },
+            template: 'welcome',
+            message:{
+                to: user.email
+            }
+        }).then(console.log)
+        .catch(console.error)
         return res.json(user)
     },
-    async Index (req, res){
+    // READ -> LER
+    async index(req, res){
         const user = await User.find()
         return res.json(user)
     },
-    async update (req, res){
-        const {nome, email, RA, password}= req.body
+    // UPDATE -> SUBSTITUIR
+    async update(req, res){
+        const{name, email, RA, password} = req.body
         let id = req.query.id
-        console.log(id);
         let user = await User.findById(id)
-        user = await User.updateOne({'_id': id}, {nome, email, RA, password})
-        console.log(user)
+        user = await User.updateOne({'_id': id}, {name,email, RA, password})
         return res.status(202).json({
-            message: "Atualização realizada com sucesso",
-            data: user
+            message : "Atualização realizada com sucesso",
+            data : user
         })
     },
-    async delete (req, res){
-        let id = req.query.id;
+    // DELETE -> DELETAR
+    async delete(req, res){
+        let id = req.query.id
         let user = await User.findById(id);
         user = await User.deleteOne(user);
         return res.status(202).json(user);
