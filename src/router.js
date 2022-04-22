@@ -33,4 +33,10 @@ routes.get('/medico',MedicoController.index)
 routes.put('/medico',MedicoController.update)
 routes.delete('/medico',MedicoController.delete)
 
+const AgendaController = require('../controller/Agenda');
+routes.post('/agenda',AgendaController.store)
+routes.get('/agenda',AgendaController.index)
+routes.put('/agenda',AgendaController.update)
+routes.delete('/agenda',AgendaController.delete)
+
 module.exports = routes
