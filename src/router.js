@@ -39,4 +39,15 @@ routes.get('/agenda',AgendaController.index)
 routes.put('/agenda',AgendaController.update)
 routes.delete('/agenda',AgendaController.delete)
 
+const ClinicaHasEspecialidadeController = require('../controller/ClinicaHasEspecialidade');
+routes.post('/clinicahasespecialidade',ClinicaHasEspecialidadeController.store)
+routes.get('/clinicahasespecialidade',ClinicaHasEspecialidadeController.index)
+
+const UsuarioHasPermissoesController = require('../controller/UsuarioHasPermissoes');
+routes.post('/usuariohaspermissoes',UsuarioHasPermissoesController.store)
+routes.get('/usuariohaspermissoes',UsuarioHasPermissoesController.index)
+routes.put('/usuariohaspermissoes',UsuarioHasPermissoesController.update)
+routes.delete('/usuariohaspermissoes',UsuarioHasPermissoesController.delete)
+
+
 module.exports = routes
